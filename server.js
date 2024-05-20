@@ -5,12 +5,12 @@ import authRoutes from "./apis/routes/auth.routes.js";
 import messageRoutes from "./apis/routes/message.routes.js";
 import userRoutes from "./apis/routes/user.routes.js";
 import cookieParser from "cookie-parser";
+import { app, server } from "./socket/socket.js";
 
 
 
 
 
-const app = express();
 dotenv.config();
 app.use(express.json());// to parse the incoming requests with JSON payloads (from req.body)
 app.use(cookieParser());
@@ -27,7 +27,7 @@ const MongoDB = process.env.MONGO_DB
 
 
 
-app.listen(PORT,()=>{
+server.listen(PORT,()=>{
     console.log("listen port", PORT);
 })
 
