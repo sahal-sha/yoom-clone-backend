@@ -11,11 +11,6 @@ const proctectRoute = async (req,res,next)=>{
         }
 
         const decoded = jwt.verify(token,process.env.JWT_SECRET);
-
-        if(!decoded){
-            return res.status(401).json({error:"Unauthorized Invalid Token"})
-        }
-
         const user = await User.findById(decoded.userId).select("-password")
 
         if(!user){
@@ -25,6 +20,10 @@ const proctectRoute = async (req,res,next)=>{
 
         req.user = user
         next()
+        
+    if(!decoded){
+        return res.status(401).json({error: "Unauthorized - Invalid Token" });
+    }
 
     } catch (error) {
         console.log("Error in protectRoute middleware:",error.message)
