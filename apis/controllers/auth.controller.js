@@ -4,7 +4,7 @@ import generateTokenAndSetCookie from "../utils/generateToken.js";
 
 export const signUp = async (req, res) => {
     const { fullName, username, password, confirmPassword, gender } = req.body;
-    console.log(req.body);
+    
     
       try {
         if (password !== confirmPassword) {
@@ -31,7 +31,7 @@ export const signUp = async (req, res) => {
         if(newUser){
             const userSaved = await newUser.save();
             generateTokenAndSetCookie(newUser._id,res)
-            const {password:pass,...resData} = userSaved._doc;
+            const {...resData} = userSaved._doc;
             console.log(resData,"❤️😊❄️");
             
             
@@ -61,7 +61,7 @@ export const login = async (req,res) =>{
         
         
         generateTokenAndSetCookie(user._id,res);
-        const {password: pass, ...restData} = user._doc;
+        const {...restData} = user._doc;
         res.status(200).json(restData);
 
         
